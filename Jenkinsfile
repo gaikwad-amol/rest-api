@@ -25,15 +25,15 @@ pipeline {
             }
         }
         stage('Deployment'){
-        		//sh 'cp target/*.war /opt/tomcat8/webapps'
+             steps {
+                sh 'echo "Copy the war to some machine and run the JAR file!"'
+                //sh 'cp target/*.jar /opt/tomcat8/webapps'
+             }
         }
-
         stage ('Notification'){
-        		emailext (
-        		      subject: "Job Completed",
-        		      body: "Jenkins Pipeline Job for Maven Build got completed !!!",
-        		      to: "amol.gaikwad.31@gmail.com"
-        		    )
+            steps {
+                emailext body: 'Jenkins Pipeline Job for Maven Build got completed !!!', recipientProviders: [buildUser()], subject: 'Build is successful!', to: 'amol.gaikwad.31@gmail.com'
+            }
         }
     }
 }
