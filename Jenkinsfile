@@ -24,5 +24,16 @@ pipeline {
 
             }
         }
+        stage('Deployment'){
+        		//sh 'cp target/*.war /opt/tomcat8/webapps'
+        }
+
+        stage ('Notification'){
+        		emailext (
+        		      subject: "Job Completed",
+        		      body: "Jenkins Pipeline Job for Maven Build got completed !!!",
+        		      to: "amol.gaikwad.31@gmail.com"
+        		    )
+        }
     }
 }
