@@ -16,9 +16,18 @@ pipeline {
                 sh 'mvn test'
             }
             post {
-                always {
-                    junit 'target/surefire-reports/*.xml'
-                }
+                    success {
+                      // publish html
+                      publishHTML target: [
+                          allowMissing: false,
+                          alwaysLinkToLastBuild: false,
+                          keepAll: true,
+                          reportDir: 'target/site/jacoco',
+                          reportFiles: 'index.html',
+                          reportName: 'Code Coverage Report'
+                        ]
+                    }
+                  }
             }
         }
     }
