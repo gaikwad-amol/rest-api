@@ -6,11 +6,6 @@ pipeline {
         }
     }
     stages {
-        stage('Build') { 
-            steps {
-                sh 'mvn -B -DskipTests clean package' 
-            }
-        }
         stage('Test') {
             steps {
                 sh 'mvn test'
@@ -20,6 +15,13 @@ pipeline {
                     jacoco()
                     junit '**/target/surefire-reports/TEST-*.xml'
                 }
+            }
+        }
+        stage('Package') {
+            steps {
+                sh 'mvn -B -DskipTests clean package'
+                archiveArtifacts artifacts: 'target/*.jar', followSymlinks: false
+
             }
         }
     }
