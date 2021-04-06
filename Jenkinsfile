@@ -27,7 +27,6 @@ pipeline {
                           reportName: 'Code Coverage Report'
                         ]
                     }
-                  }
             }
         }
     }
